@@ -61,3 +61,18 @@ header>div:last-child{flex:1 1 260px!important;margin:0!important;padding:0!impo
  header .logos img.main-logo{flex-basis:64vw!important;width:64vw!important;height:92px!important}
  header .logos img:not(.main-logo){flex-basis:54px!important;width:54px!important;height:48px!important}
 }
+
+/* Logo DEUST recadré : suppression du vide interne à l'image qui créait le grand écart */
+header .logos{display:flex!important;align-items:center;justify-content:flex-start!important;gap:8px!important;width:max-content!important;flex:0 0 auto!important}
+header .logos img.main-logo{display:block;flex:0 0 auto!important;width:210px!important;height:auto!important;max-width:none!important;max-height:none!important;object-fit:contain}
+header .logos img:not(.main-logo){display:block;flex:0 0 auto!important;width:82px!important;height:72px!important;object-fit:contain}
+header{column-gap:12px!important}
+@media(max-width:850px){
+ header .logos{gap:6px!important;width:max-content!important}
+ header .logos img.main-logo{width:min(210px,54vw)!important;height:auto!important}
+ header .logos img:not(.main-logo){width:66px!important;height:58px!important}
+}
+@media(max-width:480px){
+ header .logos img.main-logo{width:54vw!important}
+ header .logos img:not(.main-logo){width:54px!important;height:48px!important}
+}
