@@ -1,1 +1,10 @@
-const http=require("http"),fs=require("fs"),path=require("path");const root=path.join(__dirname,"public");const types={".html":"text/html; charset=utf-8",".css":"text/css; charset=utf-8",".js":"text/javascript; charset=utf-8"};http.createServer((q,r)=>{let p=decodeURIComponent(q.url.split("?")[0]);if(p==="/health"){r.writeHead(200,{"Content-Type":"application/json"});return r.end('{"ok":true}')}if(p==="/")p="/index.html";let f=path.normalize(path.join(root,p));if(!f.startsWith(root))return r.end("Forbidden");fs.readFile(f,(e,d)=>{if(e){r.writeHead(404);return r.end("Not found")}r.writeHead(200,{"Content-Type":types[path.extname(f)]||"application/octet-stream"});r.end(d)})}).listen(process.env.PORT||3000,"0.0.0.0");
+const express = require("express");
+const path = require("path");
+const app = express();
+const PORT = process.env.PORT || 3000;
+app.disable("x-powered-by");
+app.use((req,res,next)=>{ res.setHeader("X-Content-Type-Options","nosniff"); res.setHeader("Referrer-Policy","strict-origin-when-cross-origin"); next(); });
+app.get("/health", (_req,res)=>res.status(200).json({status:"ok",app:"portfolio-deust-apn"}));
+app.use(express.static(path.join(__dirname,"public"), { extensions:["html"] }));
+app.get("*", (_req,res)=>res.sendFile(path.join(__dirname,"public","index.html")));
+app.listen(PORT,()=>console.log(`Portfolio DEUST APN listening on ${PORT}`));
