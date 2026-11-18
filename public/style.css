@@ -85,3 +85,9 @@ header .logos img.main-logo{width:112px!important;height:72px!important;max-widt
 @media(max-width:480px){
  header .logos img.main-logo{width:104px!important;height:58px!important}
 }
+
+.skill-admin-item{margin:10px 0;padding:14px}
+.skill-actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.skill-actions button{font-size:12px;padding:7px 10px}
+.skill-actions .danger{color:#a6192e;border-color:#e7b9c2}
+@media(max-width:640px){.skill-admin-item>.row{align-items:flex-start;flex-direction:column}.skill-actions{justify-content:flex-start}}
