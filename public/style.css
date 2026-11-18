@@ -17,3 +17,24 @@ header .logos .main-logo{width:190px;max-width:38vw;height:auto;object-fit:conta
 .activity-icon{width:28px;height:28px;object-fit:contain;vertical-align:middle;margin-right:6px}
 .skill-tabs button{display:flex;align-items:center;justify-content:center;gap:6px}
 @media(max-width:640px){header .logos .main-logo{width:145px;max-width:42vw}.activity-admin-logo{width:82px;height:70px}}
+
+/* En-tête rééquilibré : logo DEUST dominant, signatures institutionnelles discrètes */
+header{display:flex;align-items:center;gap:24px;min-height:154px;padding:12px clamp(16px,3vw,38px)}
+header .logos{display:flex;align-items:center;justify-content:flex-start;flex:0 0 auto;gap:16px;flex-wrap:nowrap}
+header .logos img{display:block;object-fit:contain;height:auto;max-height:none}
+header .logos img.main-logo{width:330px;height:126px;max-width:42vw;object-fit:contain}
+header .logos img:not(.main-logo){width:82px;height:72px;max-width:12vw;object-fit:contain}
+header>div:last-child{min-width:0;flex:1}
+header h1{font-size:clamp(20px,2.4vw,29px);line-height:1.2}
+@media(max-width:850px){
+ header{align-items:flex-start;gap:12px;flex-wrap:wrap}
+ header .logos{width:100%;justify-content:flex-start;gap:12px}
+ header .logos img.main-logo{width:min(360px,68vw);height:112px;max-width:none}
+ header .logos img:not(.main-logo){width:66px;height:58px;max-width:none}
+ header>div:last-child{width:100%}
+}
+@media(max-width:480px){
+ header .logos{gap:9px}
+ header .logos img.main-logo{width:64vw;height:92px}
+ header .logos img:not(.main-logo){width:54px;height:48px}
+}
