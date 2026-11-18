@@ -6,3 +6,14 @@
 .skill-tabs .tab-symbol{display:inline-flex;width:42px;height:42px;align-items:center;justify-content:center;font-size:30px;flex:0 0 42px}
 .skill-tabs button.active .activity-icon{filter:brightness(0) invert(1)}
 @media(max-width:640px){.skill-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}.skill-tabs button{min-height:64px;gap:6px}.skill-tabs .activity-icon,.skill-tabs .tab-symbol{width:34px;height:34px;flex-basis:34px}}
+
+/* Identité visuelle DEUST APN */
+header .logos{align-items:center;gap:14px;flex-wrap:wrap}
+header .logos .main-logo{width:190px;max-width:38vw;height:auto;object-fit:contain}
+.activity-admin-card{overflow:hidden}
+.activity-admin-heading{display:flex;align-items:center;gap:16px;margin-bottom:12px}
+.activity-admin-heading h3{margin:0 0 4px}
+.activity-admin-logo{width:112px;height:88px;object-fit:contain;background:#fff;border-radius:10px;flex:none}
+.activity-icon{width:28px;height:28px;object-fit:contain;vertical-align:middle;margin-right:6px}
+.skill-tabs button{display:flex;align-items:center;justify-content:center;gap:6px}
+@media(max-width:640px){header .logos .main-logo{width:145px;max-width:42vw}.activity-admin-logo{width:82px;height:70px}}
