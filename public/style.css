@@ -42,3 +42,22 @@ header h1{font-size:clamp(20px,2.4vw,29px);line-height:1.2}
 /* Resserrement horizontal de l'en-tête sans modifier les tailles des logos */
 header{gap:10px;padding-left:clamp(12px,2vw,24px);padding-right:clamp(12px,2vw,24px)}
 header .logos{gap:8px}
+
+/* Correction ferme : les trois logos forment un seul groupe compact, sans espace distribué */
+header{justify-content:flex-start;column-gap:8px;row-gap:4px}
+header .logos{display:flex!important;flex:0 0 auto!important;width:max-content!important;max-width:100%;justify-content:flex-start!important;gap:4px!important;margin:0!important;padding:0!important}
+header .logos img.main-logo{flex:0 0 330px!important;width:330px!important;height:126px!important;margin:0!important}
+header .logos img:not(.main-logo){flex:0 0 82px!important;width:82px!important;height:72px!important;margin:0!important}
+header>div:last-child{flex:1 1 260px!important;margin:0!important;padding:0!important;min-width:0}
+@media(max-width:850px){
+ header{gap:6px}
+ header .logos{width:max-content!important;max-width:100%;gap:4px!important}
+ header .logos img.main-logo{flex-basis:min(360px,68vw)!important;width:min(360px,68vw)!important;height:112px!important}
+ header .logos img:not(.main-logo){flex-basis:66px!important;width:66px!important;height:58px!important}
+ header>div:last-child{flex-basis:100%!important}
+}
+@media(max-width:480px){
+ header .logos{gap:3px!important}
+ header .logos img.main-logo{flex-basis:64vw!important;width:64vw!important;height:92px!important}
+ header .logos img:not(.main-logo){flex-basis:54px!important;width:54px!important;height:48px!important}
+}
