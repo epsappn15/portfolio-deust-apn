@@ -1,52 +1,41 @@
-# Portfolio DEUST APN — V2 complète à déposer
+# Portfolio DEUST APN — V2 simplifiée
 
-Application web Node/Express + Supabase Auth/PostgreSQL, responsive et charte Université de Poitiers / STAPS.
+## Fonctionnement retenu
+- **Étudiant** : accès individuel avec identifiant et code personnel générés par l'enseignant.
+- **Enseignant** : accès centralisé avec identifiant et mot de passe définis dans Render ; consultation de tous les portfolios D1/D2, création des accès étudiants et ajout d'évaluations.
+- Base Turso dédiée au portfolio. Ne réutilisez pas la base ni les secrets de Vélo connecté.
+- Charte Université de Poitiers / STAPS et logos fournis.
 
-## Contenu
-- Authentification email / mot de passe Supabase (inscription et connexion).
-- Espaces et rôles prévus : étudiant, tuteur, enseignant, administrateur.
-- Carnet de bord connecté : expériences datées, activité, durée, mission et analyse réflexive.
-- Déclaration des stages DEUST 1 / DEUST 2, filé / massé / alternance.
-- Référentiel transversal prérempli avec les 6 domaines et 18 critères de la fiche de stage.
-- Historique d'observations successives avec les quatre niveaux de la fiche : Non abordé, Non acquis, En cours, Acquis.
-- Huit activités APN listées : Escalade, PAH, Trail, Course d’orientation, VTT, Kayak, Stand Up Paddle, Voile.
-- Synthèse imprimable / PDF navigateur et logos institutionnels.
-- Script SQL initial et configuration Render.
+## Déploiement
+1. Décompresser cette archive et déposer son contenu à la racine du dépôt GitHub privé `portfolio-deust-apn`.
+2. Dans Render, créer un **nouveau** Web Service depuis ce dépôt. Ne pas modifier les services existants.
+3. Runtime Node, région Frankfurt, build `npm install`, start `npm start`, health `/health`.
+4. Créer une base Turso distincte pour le portfolio.
+5. Ajouter dans Render > Environment :
+   - `TURSO_DATABASE_URL` : URL de la base portfolio.
+   - `TURSO_AUTH_TOKEN` : jeton d'accès de cette base.
+   - `ADMIN_USER` : identifiant enseignant.
+   - `ADMIN_PASSWORD` : mot de passe enseignant robuste et unique.
+   - `SESSION_SECRET` : chaîne aléatoire longue (32 caractères ou plus).
+   - `NODE_ENV` : `production`.
+6. Déployer. Vérifier `https://...onrender.com/health`.
+7. Se connecter à l'espace enseignant, ouvrir « Créer un étudiant », choisir D1 ou D2, puis transmettre à l'étudiant son identifiant et son code personnel. Le code n'est montré qu'une fois : le conserver dans un canal sécurisé.
+8. Tester avec des comptes fictifs avant toute donnée réelle.
 
-## Déploiement Render
-1. Créer un dépôt GitHub privé `portfolio-deust-apn` et y déposer le contenu de cette archive (les fichiers doivent être à la racine).
-2. Dans Render, créer un **nouveau Web Service** relié à ce dépôt. Ne pas modifier `course-orientation-staps` ni `velo-connecte-suaps`.
-3. Paramètres : Node, région Frankfurt, build `npm install`, start `npm start`, health check `/health`.
-4. Créer un projet Supabase séparé, dans une région UE compatible avec les exigences de l'établissement.
-5. Dans Supabase > SQL Editor, examiner puis exécuter `supabase/schema.sql` sur le projet de développement.
-6. Dans Render > Environment, définir `SUPABASE_URL` et `SUPABASE_ANON_KEY` (clé publique anon uniquement). Pour le client navigateur, les valeurs sont également à reporter dans `public/config.js` comme `SUPABASE_URL` et `SUPABASE_ANON_KEY`, puis committer/redéployer. Ne jamais utiliser `service_role`.
-7. Dans Supabase > Authentication > URL Configuration, définir l'URL Render comme Site URL et ajouter cette URL à Redirect URLs.
-8. Créer les comptes via l'écran d'inscription. L'email de confirmation peut être activé dans Supabase Auth.
-9. Attribuer les rôles dans SQL Editor. Exemple pour un compte administrateur déjà créé :
-   ```sql
-   insert into public.profiles(id,email)
-   select id,email from auth.users where email='admin@exemple.fr'
-   on conflict (id) do nothing;
-   insert into public.user_roles(user_id,role)
-   select id,'admin' from auth.users where email='admin@exemple.fr'
-   on conflict do nothing;
-   ```
-   Refaire pour les tuteurs/enseignants avec le rôle approprié. Pour les étudiants, attribuer `student`.
-10. Vérifier `/health`, l'inscription, la connexion, le carnet de bord et la séparation des comptes.
+## Limites de cette V2
+- Cette version est un socle de travail, pas une version certifiée institutionnelle.
+- L'accès tuteur n'est pas encore inclus ; l'enseignant consulte et évalue.
+- Les critères transversaux 6 domaines / 18 items sont préchargés dans l'application. Les critères techniques détaillés des 8 activités restent à construire et faire valider par l'équipe pédagogique.
+- Les justificatifs ne sont pas encore téléversables ; le tableau « preuves » est prévu dans le schéma d'évolution.
+- Les heures de stage sont déclarées par le volume des expériences ; le workflow de validation des heures par l'enseignant est à développer.
+- Prévoir sauvegardes, procédure de récupération, contrôle des accès, durées de conservation, information des étudiants, validation DSI/DPO et conformité RGPD avant un pilote réel.
+- Le code d'accès étudiant est un secret : ne pas l'envoyer dans un canal public. La session serveur est en mémoire ; un redémarrage déconnecte les utilisateurs. Pour montée en charge, prévoir un stockage de session persistant.
+- Les politiques d'accès et la sécurité doivent faire l'objet d'un audit avant production.
 
-## Important — état et limites de cette V2
-Cette livraison est un socle applicatif connecté, pas une version certifiée pour un pilote réel :
-- Le rôle est lu depuis `user_roles`, mais les vues tuteur/enseignant/admin sont encore à compléter : la navigation et certains écrans restent centrés sur le parcours étudiant.
-- Le rattachement et l'invitation sécurisée d'un tuteur, la validation des heures, les évaluations par les encadrants, les pièces jointes privées, les exports PDF avancés et le journal d'audit ne sont pas encore finalisés.
-- Les critères spécifiques détaillés aux huit activités doivent être élaborés et validés par l'équipe pédagogique ; ils ne sont pas inventés dans cette livraison.
-- Le SQL constitue une base de développement à auditer. Les politiques RLS et le workflow de rôles doivent être revus et testés par la DSI / DPO avant tout usage avec des données personnelles.
-- Prévoir information des personnes, minimisation des données, durées de conservation, sauvegardes, droits RGPD, procédure de suppression/export, et validation de l'hébergement par l'établissement.
-- N'importez pas de données réelles d'étudiants avant validation institutionnelle.
-
-## Démarrage local
+## Développement local
 Node.js 20+ :
 ```bash
 npm install
-npm start
+ADMIN_USER=enseignant ADMIN_PASSWORD='mot-de-passe-local' SESSION_SECRET='secret-local-long' npm start
 ```
-Puis ouvrir `http://localhost:3000`. Sans configuration Supabase, l'écran de connexion indique la configuration manquante.
+Sans TURSO_DATABASE_URL, la connexion à la base n'est pas initialisée ; configurez une base Turso de test pour l'usage complet.

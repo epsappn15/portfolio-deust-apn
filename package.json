@@ -1,9 +1,8 @@
 {
-  "name": "portfolio-deust-apn",
-  "version": "2.0.0",
-  "private": true,
-  "description": "Portfolio partagé DEUST STAPS AGAPSC Activités de Pleine Nature",
-  "engines": { "node": ">=20" },
-  "scripts": { "start": "node server.js", "dev": "node server.js" },
-  "dependencies": { "express": "^4.21.2" }
+  "name":"portfolio-deust-apn",
+  "version":"2.1.0",
+  "private":true,
+  "engines":{"node":">=20"},
+  "scripts":{"start":"node server.js"},
+  "dependencies":{"@libsql/client":"^0.15.15","bcryptjs":"^2.4.3","express":"^4.21.2","express-session":"^1.18.1"}
 }
