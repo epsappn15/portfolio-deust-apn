@@ -5,6 +5,8 @@ const {createClient}=require("@libsql/client");
 const crypto=require("crypto");
 const path=require("path");
 const app=express();
+// Render termine le HTTPS en amont : faire confiance au proxy pour que les cookies secure soient émis.
+app.set("trust proxy",1);
 const PORT=process.env.PORT||3000;
 const db=createClient({url:process.env.TURSO_DATABASE_URL||"file:portfolio.db",authToken:process.env.TURSO_AUTH_TOKEN});
 const required=["ADMIN_USER","ADMIN_PASSWORD","SESSION_SECRET","TURSO_DATABASE_URL","TURSO_AUTH_TOKEN"];
