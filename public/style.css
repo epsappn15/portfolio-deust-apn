@@ -38,3 +38,7 @@ header h1{font-size:clamp(20px,2.4vw,29px);line-height:1.2}
  header .logos img.main-logo{width:64vw;height:92px}
  header .logos img:not(.main-logo){width:54px;height:48px}
 }
+
+/* Resserrement horizontal de l'en-tête sans modifier les tailles des logos */
+header{gap:10px;padding-left:clamp(12px,2vw,24px);padding-right:clamp(12px,2vw,24px)}
+header .logos{gap:8px}
