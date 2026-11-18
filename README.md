@@ -1,41 +1,37 @@
-# Portfolio DEUST APN — V2 simplifiée
+# Portfolio DEUST APN – version enrichie
 
-## Fonctionnement retenu
-- **Étudiant** : accès individuel avec identifiant et code personnel générés par l'enseignant.
-- **Enseignant** : accès centralisé avec identifiant et mot de passe définis dans Render ; consultation de tous les portfolios D1/D2, création des accès étudiants et ajout d'évaluations.
-- Base Turso dédiée au portfolio. Ne réutilisez pas la base ni les secrets de Vélo connecté.
-- Charte Université de Poitiers / STAPS et logos fournis.
+Cette version prolonge l'application déjà déployée. Elle conserve les comptes étudiants, les identifiants enseignants et les données existantes dans Turso : les nouvelles tables sont créées automatiquement au démarrage et les nouvelles colonnes de stage sont ajoutées de façon additive.
 
-## Déploiement
-1. Décompresser cette archive et déposer son contenu à la racine du dépôt GitHub privé `portfolio-deust-apn`.
-2. Dans Render, créer un **nouveau** Web Service depuis ce dépôt. Ne pas modifier les services existants.
-3. Runtime Node, région Frankfurt, build `npm install`, start `npm start`, health `/health`.
-4. Créer une base Turso distincte pour le portfolio.
-5. Ajouter dans Render > Environment :
-   - `TURSO_DATABASE_URL` : URL de la base portfolio.
-   - `TURSO_AUTH_TOKEN` : jeton d'accès de cette base.
-   - `ADMIN_USER` : identifiant enseignant.
-   - `ADMIN_PASSWORD` : mot de passe enseignant robuste et unique.
-   - `SESSION_SECRET` : chaîne aléatoire longue (32 caractères ou plus).
-   - `NODE_ENV` : `production`.
-6. Déployer. Vérifier `https://...onrender.com/health`.
-7. Se connecter à l'espace enseignant, ouvrir « Créer un étudiant », choisir D1 ou D2, puis transmettre à l'étudiant son identifiant et son code personnel. Le code n'est montré qu'une fois : le conserver dans un canal sécurisé.
-8. Tester avec des comptes fictifs avant toute donnée réelle.
+## Fonctionnalités
 
-## Limites de cette V2
-- Cette version est un socle de travail, pas une version certifiée institutionnelle.
-- L'accès tuteur n'est pas encore inclus ; l'enseignant consulte et évalue.
-- Les critères transversaux 6 domaines / 18 items sont préchargés dans l'application. Les critères techniques détaillés des 8 activités restent à construire et faire valider par l'équipe pédagogique.
-- Les justificatifs ne sont pas encore téléversables ; le tableau « preuves » est prévu dans le schéma d'évolution.
-- Les heures de stage sont déclarées par le volume des expériences ; le workflow de validation des heures par l'enseignant est à développer.
-- Prévoir sauvegardes, procédure de récupération, contrôle des accès, durées de conservation, information des étudiants, validation DSI/DPO et conformité RGPD avant un pilote réel.
-- Le code d'accès étudiant est un secret : ne pas l'envoyer dans un canal public. La session serveur est en mémoire ; un redémarrage déconnecte les utilisateurs. Pour montée en charge, prévoir un stockage de session persistant.
-- Les politiques d'accès et la sécurité doivent faire l'objet d'un audit avant production.
+- Accès étudiant individuel, accès enseignant centralisé et accès tuteur limité aux étudiants qui lui sont associés.
+- Gestion des étudiants (création et suppression côté enseignant).
+- Carnet de bord des expériences et suivi des stages avec volume prévu/réalisé, dates, tuteur, missions, bilan et progression.
+- Évaluation des 18 critères transversaux avec historique des observations.
+- Référentiel de compétences APN pour les huit activités. Les critères préremplis sont explicitement des propositions pédagogiques à valider ; l'enseignant peut en ajouter.
+- Autoévaluation étudiant sur les critères APN.
+- Dépôt de justificatifs PDF/JPG/PNG/WEBP dans Turso, limite 4 Mo par fichier.
+- Export PDF par la fonction Imprimer / Enregistrer en PDF du navigateur.
+- Création d'accès tuteurs et attribution des étudiants visibles.
 
-## Développement local
-Node.js 20+ :
-```bash
-npm install
-ADMIN_USER=enseignant ADMIN_PASSWORD='mot-de-passe-local' SESSION_SECRET='secret-local-long' npm start
-```
-Sans TURSO_DATABASE_URL, la connexion à la base n'est pas initialisée ; configurez une base Turso de test pour l'usage complet.
+## Déploiement Render
+
+1. Remplacer les fichiers du dépôt GitHub `portfolio-deust-apn` par le contenu de cette archive.
+2. Commit/push sur la branche reliée à Render.
+3. Laisser Render exécuter `npm install` puis `npm start`.
+4. Ne pas modifier les variables d'environnement ni recréer la base Turso.
+
+Variables attendues inchangées : `TURSO_DATABASE_URL`, `TURSO_AUTH_TOKEN`, `ADMIN_USER`, `ADMIN_PASSWORD`, `SESSION_SECRET`, `NODE_ENV=production`.
+
+## Référentiel et stages
+
+Les 18 critères transversaux et les niveaux d'évaluation reprennent la fiche d'évaluation des compétences des stages DEUST APN fournie. Les périodes reprennent le document de présentation des stages : D1 filé 150 h, D1 massé 300 h, D2 filé 300 h, D2 massé 300 h ou alternance en D2. L'alternance dépend du calendrier d'apprentissage. Les critères spécifiques aux huit activités sont proposés comme base de travail et doivent être validés par l'équipe pédagogique avant d'être considérés comme officiels.
+
+## Limites et précautions
+
+- L'export PDF utilise l'impression du navigateur ; choisir « Enregistrer au format PDF ».
+- Les justificatifs sont stockés dans la base Turso en base64. Limite applicative : 4 Mo par fichier. Vérifier le quota et les coûts Turso avant un usage intensif.
+- Les tuteurs disposent d'un accès en lecture aux seuls étudiants qui leur sont attribués ; les évaluations officielles restent saisies par l'étudiant ou l'enseignant dans cette version.
+- La création d'un accès tuteur affiche un code temporaire une seule fois ; le transmettre de manière sécurisée.
+- Faire valider les contenus pédagogiques, les durées, les rôles et les règles de conservation des justificatifs par l'équipe pédagogique et le DPO avant généralisation. Prévoir une sauvegarde régulière de la base.
+- Cette version est une base fonctionnelle à tester en environnement pilote, pas une certification de conformité RGPD ou un audit de sécurité.

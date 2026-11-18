@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: portfolio-deust-apn
+    runtime: node
+    plan: starter
+    region: frankfurt
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
