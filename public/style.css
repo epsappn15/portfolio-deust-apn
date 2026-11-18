@@ -76,3 +76,12 @@ header{column-gap:12px!important}
  header .logos img.main-logo{width:54vw!important}
  header .logos img:not(.main-logo){width:54px!important;height:48px!important}
 }
+
+/* Équilibre final : logo DEUST de hauteur comparable aux logos institutionnels */
+header .logos img.main-logo{width:112px!important;height:72px!important;max-width:none!important;max-height:none!important;object-fit:contain}
+@media(max-width:850px){
+ header .logos img.main-logo{width:112px!important;height:66px!important;max-width:none!important}
+}
+@media(max-width:480px){
+ header .logos img.main-logo{width:104px!important;height:58px!important}
+}
