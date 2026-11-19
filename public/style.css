@@ -184,3 +184,14 @@ header .logos img.main-logo{width:112px!important;height:72px!important;max-widt
 .student-report h3{margin:0}
 .student-report h4{margin:14px 0 5px;color:#243e67}
 .student-report .report-text{white-space:pre-wrap;margin:0;padding:10px 12px;background:#f5f7fa;border-radius:7px}
+
+
+/* V3.24 – espace tuteur et retours de stage */
+.tutor-stage{margin:14px 0}
+.tutor-stage h3{margin-top:0;color:#243e67}
+.tutor-review-form{border-top:1px solid #dce2e9;margin-top:14px;padding-top:12px;display:grid;gap:10px}
+.tutor-review-form label{display:flex;flex-direction:column;gap:5px}
+.tutor-review-form textarea{width:100%;resize:vertical}
+.tutor-review{padding:9px 0;border-bottom:1px solid #e0e4e9}
+.tutor-review p{margin:5px 0}
+.tutor-review small{color:#697482}

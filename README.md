@@ -92,3 +92,12 @@ Les 18 critères transversaux et les niveaux d'évaluation reprennent la fiche d
 - Un nouvel onglet « Bilans pédagogiques » est disponible dans l’espace étudiant pour consulter les bilans partagés, les appréciations et les objectifs.
 - Routes protégées : création/consultation enseignant et consultation limitée à l’étudiant connecté.
 - Migration non destructive : aucune table ou donnée existante n’est supprimée ou modifiée.
+
+
+## V3.24 – Espace tuteur et retours de stage
+- Le tuteur consulte les seuls étudiants qui lui sont attribués, leurs périodes de stage, missions, expériences et évaluations.
+- Pour chaque stage, il peut transmettre une appréciation générale, des points forts observés et des axes de progrès.
+- Les retours sont conservés dans une nouvelle table `tutor_stage_reviews` et restent consultables dans l’espace tuteur.
+- Un nouvel onglet étudiant « Retours des tuteurs » permet de consulter les retours transmis.
+- Les routes de saisie vérifient l’association tuteur/étudiant et l’appartenance du stage à cet étudiant.
+- Migration additive, sans suppression ni modification des données existantes.
