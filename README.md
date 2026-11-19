@@ -101,3 +101,11 @@ Les 18 critères transversaux et les niveaux d'évaluation reprennent la fiche d
 - Un nouvel onglet étudiant « Retours des tuteurs » permet de consulter les retours transmis.
 - Les routes de saisie vérifient l’association tuteur/étudiant et l’appartenance du stage à cet étudiant.
 - Migration additive, sans suppression ni modification des données existantes.
+
+
+## V3.25 – Gestion des comptes tuteurs
+- L’espace enseignant liste désormais les comptes tuteurs existants et leurs étudiants attribués.
+- Modification du nom, de l’identifiant email et de la liste des étudiants accessibles.
+- Réinitialisation du code d’accès avec génération d’un nouveau code temporaire ; l’ancien code devient invalide.
+- Vérification côté serveur que les étudiants attribués existent.
+- Aucune suppression de compte ni de retours de stage ; les données historiques sont préservées.

@@ -195,3 +195,14 @@ header .logos img.main-logo{width:112px!important;height:72px!important;max-widt
 .tutor-review{padding:9px 0;border-bottom:1px solid #e0e4e9}
 .tutor-review p{margin:5px 0}
 .tutor-review small{color:#697482}
+
+
+/* V3.25 – administration des comptes tuteurs */
+.tutor-account{display:grid;gap:8px}
+.tutor-account .row{align-items:center;justify-content:space-between;flex-wrap:wrap}
+.tutor-account p{margin:3px 0}
+.tutor-edit-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.tutor-edit-form label{display:flex;flex-direction:column;gap:5px}
+.tutor-edit-form .full{grid-column:1/-1}
+.tutor-edit-form select{min-height:130px}
+@media(max-width:640px){.tutor-edit-form{grid-template-columns:1fr}.tutor-edit-form .full{grid-column:auto}}

@@ -96,6 +96,33 @@ app.post("/api/activity-evaluations",auth,async(q,r)=>{const sid=scope(q)||q.bod
 app.post("/api/evidence",auth,async(q,r)=>{const {studentId,experience_id,competency_id,file_name,mime_type,data_base64,note}=q.body||{};const sid=scope(q)||studentId;if(!sid||!file_name||!mime_type||!data_base64)return r.status(400).json({error:"Fichier incomplet."});if(scope(q)&&studentId&&studentId!==sid)return r.sendStatus(403);const bytes=Buffer.from(data_base64,"base64");if(bytes.length>4*1024*1024)return r.status(413).json({error:"Fichier trop volumineux (4 Mo maximum)."});if(!["application/pdf","image/jpeg","image/png","image/webp"].includes(mime_type))return r.status(415).json({error:"Formats acceptés : PDF, JPG, PNG ou WEBP."});const eid=id();await db.execute({sql:"insert into evidence_files(id,student_id,experience_id,competency_id,file_name,mime_type,data_base64,note) values(?,?,?,?,?,?,?,?)",args:[eid,sid,experience_id||null,competency_id||null,file_name,mime_type,bytes.toString("base64"),note||null]});r.json({id:eid})});
 app.get("/api/evidence/:id",auth,async(q,r)=>{const x=await db.execute({sql:"select * from evidence_files where id=?",args:[q.params.id]});const f=x.rows[0];if(!f)return r.sendStatus(404);if(scope(q)&&scope(q)!==f.student_id)return r.sendStatus(403);if(q.session.user.role==="tutor"){const a=await db.execute({sql:"select 1 from tutor_students where tutor_id=? and student_id=?",args:[q.session.user.tutorId,f.student_id]});if(!a.rows.length)return r.sendStatus(403)}const b=Buffer.from(f.data_base64,"base64");r.setHeader("Content-Type",f.mime_type);r.setHeader("Content-Disposition",`attachment; filename*=UTF-8''${encodeURIComponent(f.file_name)}`);r.send(b)});
 app.post("/api/tutors",teacher,async(q,r)=>{const {name,email,studentIds=[]}=q.body||{};if(!name||!email||!Array.isArray(studentIds))return r.status(400).json({error:"Nom, email et étudiants requis."});const tid=id(),password=String(crypto.randomInt(10000000,99999999)),hash=await bcrypt.hash(password,10);await db.execute({sql:"insert into tutors(id,name,email,access_hash) values(?,?,?,?)",args:[tid,name,email,hash]});for(const sid of studentIds)await db.execute({sql:"insert or ignore into tutor_students(tutor_id,student_id) values(?,?)",args:[tid,sid]});r.json({id:tid,name,email,password})});
+app.get("/api/tutors",teacher,async(q,r)=>{
+ const rows=await db.execute("select id,name,email,created_at from tutors order by name");
+ const links=await db.execute("select tutor_id,student_id from tutor_students");
+ r.json(rows.rows.map(t=>({...t,studentIds:links.rows.filter(x=>x.tutor_id===t.id).map(x=>x.student_id)})));
+});
+app.put("/api/tutors/:id",teacher,async(q,r)=>{
+ const {name,email,studentIds=[]}=q.body||{};
+ if(!String(name||"").trim()||!String(email||"").trim()||!Array.isArray(studentIds))return r.status(400).json({error:"Nom, email et liste d’étudiants requis."});
+ const found=await db.execute({sql:"select id from tutors where id=?",args:[q.params.id]});
+ if(!found.rows.length)return r.status(404).json({error:"Compte tuteur introuvable."});
+ const valid=await db.execute({sql:"select id from students"});
+ const validIds=new Set(valid.rows.map(x=>x.id));
+ if(studentIds.some(x=>!validIds.has(x)))return r.status(400).json({error:"Un étudiant sélectionné est invalide."});
+ await db.execute({sql:"update tutors set name=?,email=? where id=?",args:[String(name).trim(),String(email).trim(),q.params.id]});
+ await db.execute({sql:"delete from tutor_students where tutor_id=?",args:[q.params.id]});
+ for(const sid of [...new Set(studentIds)])await db.execute({sql:"insert into tutor_students(tutor_id,student_id) values(?,?)",args:[q.params.id,sid]});
+ r.json({ok:true});
+});
+app.post("/api/tutors/:id/reset-password",teacher,async(q,r)=>{
+ const found=await db.execute({sql:"select id from tutors where id=?",args:[q.params.id]});
+ if(!found.rows.length)return r.status(404).json({error:"Compte tuteur introuvable."});
+ const password=String(crypto.randomInt(10000000,99999999));
+ const hash=await bcrypt.hash(password,10);
+ await db.execute({sql:"update tutors set access_hash=? where id=?",args:[hash,q.params.id]});
+ r.json({ok:true,password});
+});
+
 // Retours de stage : le tuteur ne peut écrire que sur un étudiant qui lui est attribué.
 app.post("/api/tutor/reviews/:studentId/:internshipId",tutor,async(q,r)=>{
  const assigned=await db.execute({sql:"select 1 from tutor_students where tutor_id=? and student_id=?",args:[q.session.user.tutorId,q.params.studentId]});
