@@ -92,3 +92,6 @@ header .logos img.main-logo{width:112px!important;height:72px!important;max-widt
 .skill-actions .danger{color:#a6192e;border-color:#e7b9c2}
 @media(max-width:640px){.skill-admin-item>.row{align-items:flex-start;flex-direction:column}.skill-actions{justify-content:flex-start}}
 .stage-summary{margin:14px 0}.progress-track{height:10px;background:#edf0f2;border-radius:20px;overflow:hidden;margin:8px 0 12px}.progress-track span{display:block;height:100%;background:var(--blue);border-radius:20px;transition:width .2s}
+.stage-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.stage-actions .danger{color:#a6192e;border:1px solid #e7b9c2;background:#fff}
+.stage-actions button{min-width:100px}
