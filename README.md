@@ -123,3 +123,14 @@ Les critères d'évaluation restent le référentiel transversal existant. Les g
 ## V3.27 – Tableau de bord par APN
 
 Ajout dans le tableau de bord enseignant d'une synthèse pour les huit activités : Escalade, PAH, Trail, Course d’orientation, VTT, Kayak, Stand Up Paddle et Voile. Chaque carte indique les étudiants ayant au moins une évaluation sur les critères de l'activité, le nombre d'expériences déclarées, les niveaux acquis/en cours/non acquis et les critères restant à évaluer. Le taux d'acquisition est calculé sur les seuls critères évalués (acquis / évalués), afin de ne pas assimiler une absence d'évaluation à un échec.
+
+
+## V3.28 – Évaluations tuteurs et suivi enseignant
+
+- Grille tuteur pour les 18 critères transversaux, saisie par stage et historique conservé.
+- Consultation des évaluations de critères par l'enseignant dans le portfolio individuel.
+- Création d'objectifs de progression individuels par l'enseignant.
+- Page de communication permettant de publier un message à tous les étudiants, aux D1 ou aux D2.
+- Export du bilan pédagogique complet via l'impression du portfolio (enregistrer au format PDF depuis le navigateur).
+
+Les nouvelles évaluations sont stockées dans `tutor_competency_reviews`. Aucune table ou donnée existante n'est supprimée.

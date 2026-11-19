@@ -220,3 +220,14 @@ header .logos img.main-logo{width:112px!important;height:72px!important;max-widt
 .apn-metrics{display:grid;grid-template-columns:1fr 1fr;gap:.45rem .8rem;margin-top:.8rem;font-size:.88rem;color:var(--muted,#5f6875)}
 .apn-metrics b{color:var(--text,#202733)}
 @media(max-width:600px){.apn-dashboard-grid{grid-template-columns:1fr}.apn-stat-card{padding:.85rem}}
+
+/* V3.28 - grille tuteur des 18 critères */
+.tutor-competency-details{margin:1rem 0;padding:.9rem;border:1px solid var(--border,#dce1e8);border-radius:10px}
+.tutor-competency-details summary{font-weight:700;cursor:pointer}
+.competency-group{border:1px solid var(--border,#dce1e8);border-radius:9px;margin:.8rem 0;padding:.8rem}
+.competency-group legend{font-weight:700;padding:0 .35rem}
+.competency-row{display:grid;grid-template-columns:minmax(0,2fr) minmax(130px,1fr) minmax(160px,1.4fr);gap:.6rem;align-items:end;padding:.4rem 0;border-bottom:1px solid var(--border,#e6e9ee)}
+.competency-row label{display:grid;gap:.25rem}
+.competency-row input,.competency-row select{width:100%;min-width:0}
+@media(max-width:700px){.competency-row{grid-template-columns:1fr}.competency-row input{margin-bottom:.5rem}}
+@media print{.no-print,.tutor-competency-details form{display:none!important}.card{break-inside:avoid}}
