@@ -148,6 +148,27 @@ app.get("/api/student/tutor-reviews",auth,async(q,r)=>{
 });
 app.get("/api/tutor/students",tutor,async(q,r)=>{const x=await db.execute({sql:"select s.id,s.name,s.promo from students s join tutor_students ts on ts.student_id=s.id where ts.tutor_id=? order by s.name",args:[q.session.user.tutorId]});r.json(x.rows)});
 app.get("/api/tutor/portfolio/:studentId",tutor,async(q,r)=>{const a=await db.execute({sql:"select 1 from tutor_students where tutor_id=? and student_id=?",args:[q.session.user.tutorId,q.params.studentId]});if(!a.rows.length)return r.sendStatus(403);const sid=q.params.studentId;const [s,i,e,v,as,evf]=await Promise.all([db.execute({sql:"select id,name,promo from students where id=?",args:[sid]}),db.execute({sql:"select * from internships where student_id=?",args:[sid]}),db.execute({sql:"select * from experiences where student_id=?",args:[sid]}),db.execute({sql:"select * from evaluations where student_id=?",args:[sid]}),db.execute("select * from activity_skills order by activity,id"),db.execute({sql:"select id,file_name,note,created_at from evidence_files where student_id=?",args:[sid]})]);const reviews=await db.execute({sql:"select * from tutor_stage_reviews where student_id=? order by created_at desc",args:[sid]});r.json({student:s.rows[0],internships:i.rows,experiences:e.rows,evaluations:v.rows,competencies,levels,activities,activitySkills:as.rows,evidenceFiles:evf.rows,stageReviews:reviews.rows})});
+
+ // Journal réflexif étudiant : routes API explicitement exposées sous /api.
+ app.get("/api/student/journal",auth,async(q,r)=>{
+  try {
+   if(q.session.user.role!=="student")return r.status(403).json({error:"Accès étudiant requis."});
+   const x=await db.execute({sql:"select id,activity,entry_date,situation,role,analysis,learning,created_at from student_journal where student_id=? order by entry_date desc,created_at desc",args:[q.session.user.studentId]});
+   return r.json(x.rows);
+  } catch(err) { console.error("GET student journal:",err); return r.status(500).json({error:"Impossible de charger le journal réflexif."}); }
+ });
+ app.post("/api/student/journal",auth,async(q,r)=>{
+  try {
+   if(q.session.user.role!=="student")return r.status(403).json({error:"Accès étudiant requis."});
+   const b=q.body||{};
+   if(!b.entry_date||!String(b.situation||"").trim())return r.status(400).json({error:"Date et situation vécue obligatoires."});
+   if(b.activity&&!activities.includes(b.activity))return r.status(400).json({error:"Activité invalide."});
+   const jid=id();
+   await db.execute({sql:"insert into student_journal(id,student_id,activity,entry_date,situation,role,analysis,learning) values(?,?,?,?,?,?,?,?)",args:[jid,q.session.user.studentId,b.activity||null,b.entry_date,String(b.situation).trim(),b.role||null,b.analysis||null,b.learning||null]});
+   return r.json({id:jid,ok:true});
+  } catch(err) { console.error("POST student journal:",err); return r.status(500).json({error:"Impossible d’enregistrer cette entrée du journal réflexif."}); }
+ });
+
 app.use(express.static(path.join(__dirname,"public")));
 app.get("*",(_q,r)=>r.sendFile(path.join(__dirname,"public","index.html")));
 (async()=>{try{if(process.env.TURSO_DATABASE_URL)await initDb();app.listen(PORT,()=>console.log("DEUST APN listening on "+PORT));}catch(e){console.error(e);process.exit(1)}})();
