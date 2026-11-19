@@ -134,3 +134,8 @@ Ajout dans le tableau de bord enseignant d'une synthèse pour les huit activité
 - Export du bilan pédagogique complet via l'impression du portfolio (enregistrer au format PDF depuis le navigateur).
 
 Les nouvelles évaluations sont stockées dans `tutor_competency_reviews`. Aucune table ou donnée existante n'est supprimée.
+
+
+## Version 3.29 — ergonomie responsive
+
+Cette version harmonise la lisibilité et les interactions sur ordinateur, tablette et smartphone : navigation horizontale défilante, zones tactiles agrandies, formulaires et cartes adaptés aux petits écrans, meilleure hiérarchie visuelle, états de focus clavier et prise en compte de la réduction des animations. Les routes API, le schéma Turso, les comptes et les données ne sont pas modifiés.
