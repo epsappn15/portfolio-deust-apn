@@ -95,3 +95,48 @@ header .logos img.main-logo{width:112px!important;height:72px!important;max-widt
 .stage-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 .stage-actions .danger{color:#a6192e;border:1px solid #e7b9c2;background:#fff}
 .stage-actions button{min-width:100px}
+
+/* V3.12 – historique et progression des évaluations */
+.evaluation-history{margin:.75rem 0}
+.evaluation-history>.history{margin-top:.45rem;border-left:3px solid #d5dce5;padding:.55rem .75rem;background:#f7f8fa;border-radius:0 8px 8px 0}
+.stage-summary .progress-track,.card .progress-track{margin:.65rem 0}
+
+
+/* V3.13 – mise en page du portfolio imprimable / PDF */
+.portfolio-document{background:#fff;color:#202a35;padding:28px;border-radius:12px}
+.portfolio-cover{padding:8px 0 26px;border-bottom:3px solid #b51f36;margin-bottom:24px}
+.portfolio-cover .logos{display:flex;align-items:center;gap:18px;margin-bottom:28px}
+.portfolio-cover .logos img{width:auto;height:64px;max-width:190px;object-fit:contain}
+.portfolio-cover .eyebrow{font-size:12px;letter-spacing:2px;font-weight:700;color:#a51d35;margin:0 0 8px}
+.portfolio-cover h1{font-size:27px;line-height:1.2;margin:0 0 22px;color:#243e67}
+.portfolio-cover h2{font-size:23px;margin:0 0 5px}
+.portfolio-cover .document-date{margin-top:28px;color:#66717d;font-size:12px}
+.pdf-section{margin:24px 0;break-inside:auto}
+.pdf-section>h2{font-size:19px;color:#243e67;border-bottom:1px solid #d8dee7;padding-bottom:7px;margin-bottom:14px}
+.pdf-section>h3{font-size:15px;color:#243e67;margin:18px 0 8px}
+.pdf-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:14px 0}
+.pdf-stats>div{border:1px solid #dce2e9;border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:4px}
+.pdf-stats b{font-size:22px;color:#243e67}.pdf-stats span{font-size:12px;color:#5d6875}
+.pdf-table{width:100%;border-collapse:collapse;font-size:11px;margin:10px 0 18px}
+.pdf-table th,.pdf-table td{border:1px solid #d9dfe6;padding:7px;text-align:left;vertical-align:top;overflow-wrap:anywhere}
+.pdf-table th{background:#eef2f6;color:#243e67}
+.pdf-item{padding:10px 0;border-bottom:1px solid #e0e4e9;break-inside:avoid}
+.pdf-item h3{font-size:14px;margin:0 0 7px;color:#243e67}
+.pdf-item p{margin:4px 0;font-size:12px;white-space:pre-wrap}
+.pdf-footer{border-top:1px solid #d9dfe6;padding-top:10px;margin-top:28px;color:#697482;font-size:10px}
+.pdf-actions{margin:16px 0}
+@media(max-width:650px){.portfolio-document{padding:14px}.pdf-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.pdf-table{font-size:10px}.pdf-table th,.pdf-table td{padding:4px}}
+@page{size:A4;margin:14mm}
+@media print{
+ body{background:#fff!important;color:#202a35!important;font-size:10pt!important}
+ header,nav,.no-print,.pdf-actions{display:none!important}
+ main,#content{display:block!important;width:100%!important;max-width:none!important;margin:0!important;padding:0!important}
+ .portfolio-document{padding:0!important;border:0!important;box-shadow:none!important;border-radius:0!important}
+ .portfolio-cover{break-after:avoid}
+ .pdf-section{break-inside:auto}
+ .pdf-section>h2,.pdf-section>h3{break-after:avoid}
+ .pdf-item,.pdf-table tr{break-inside:avoid}
+ .pdf-stats>div{background:#fff!important}
+ .pdf-table th{background:#eef2f6!important;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+ button{display:none!important}
+}

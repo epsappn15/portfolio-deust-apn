@@ -35,3 +35,9 @@ Les 18 critères transversaux et les niveaux d'évaluation reprennent la fiche d
 - La création d'un accès tuteur affiche un code temporaire une seule fois ; le transmettre de manière sécurisée.
 - Faire valider les contenus pédagogiques, les durées, les rôles et les règles de conservation des justificatifs par l'équipe pédagogique et le DPO avant généralisation. Prévoir une sauvegarde régulière de la base.
 - Cette version est une base fonctionnelle à tester en environnement pilote, pas une certification de conformité RGPD ou un audit de sécurité.
+
+
+## V3.13 – Export PDF du portfolio
+- Mise en page A4 dédiée à l’impression et à l’enregistrement PDF depuis le navigateur.
+- Synthèse de progression, compétences transversales et par activité, stages, expériences et historique des évaluations.
+- Depuis le portfolio, cliquer sur « Télécharger / imprimer le portfolio en PDF », puis choisir « Enregistrer au format PDF » dans la fenêtre d’impression.
