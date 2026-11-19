@@ -41,3 +41,10 @@ Les 18 critères transversaux et les niveaux d'évaluation reprennent la fiche d
 - Mise en page A4 dédiée à l’impression et à l’enregistrement PDF depuis le navigateur.
 - Synthèse de progression, compétences transversales et par activité, stages, expériences et historique des évaluations.
 - Depuis le portfolio, cliquer sur « Télécharger / imprimer le portfolio en PDF », puis choisir « Enregistrer au format PDF » dans la fenêtre d’impression.
+
+
+## V3.14 – Tableau de bord enseignant de la promotion
+- Nouvel onglet enseignant avec synthèse D1/D2, effectifs, critères acquis / en cours / non acquis / à évaluer et heures de stage déclarées.
+- Vue individuelle filtrable par promotion, avec accès direct au portfolio étudiant.
+- Les indicateurs sont calculés à partir des dernières évaluations enregistrées ; aucune donnée ni table de la base n’est modifiée.
+- Actualisation manuelle disponible pour recharger les indicateurs.

@@ -140,3 +140,17 @@ header .logos img.main-logo{width:112px!important;height:72px!important;max-widt
  .pdf-table th{background:#eef2f6!important;print-color-adjust:exact;-webkit-print-color-adjust:exact}
  button{display:none!important}
 }
+
+
+/* V3.14 – tableau de bord promotion */
+.promotion-heading{align-items:flex-start;margin-bottom:12px}
+.promotion-kpis{margin:14px 0}
+.promotion-filter{margin:22px 0 10px;align-items:center}
+.promotion-student{display:block}
+.promotion-student-main{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.promotion-student-main p{margin:4px 0}
+.promotion-detail{display:flex;gap:8px 16px;flex-wrap:wrap;font-size:12px;color:#596575}
+.promotion-student .progress-track{margin:10px 0}
+.promotion-student>button{margin-top:8px}
+.promotion-note{margin-top:18px;font-size:12px}
+@media(max-width:640px){.promotion-student-main{align-items:flex-start;flex-direction:column}.promotion-filter{align-items:flex-start;flex-direction:column}.promotion-filter select{width:100%}}
