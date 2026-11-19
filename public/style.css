@@ -206,3 +206,17 @@ header .logos img.main-logo{width:112px!important;height:72px!important;max-widt
 .tutor-edit-form .full{grid-column:1/-1}
 .tutor-edit-form select{min-height:130px}
 @media(max-width:640px){.tutor-edit-form{grid-template-columns:1fr}.tutor-edit-form .full{grid-column:auto}}
+
+/* V3.26 - outils réflexifs et retours croisés */
+.tutor-comment-form,.tutor-hours-form{margin-top:1rem;padding:1rem;background:var(--surface,#f7f8fa);border-radius:10px}
+.tutor-comment-form textarea,.tutor-hours-form input{width:100%}
+.student-report .notice{margin-top:.75rem}
+
+/* V3.27 - tableau de bord par activité APN */
+.apn-dashboard{margin:1.25rem 0}
+.apn-dashboard-grid{grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem}
+.apn-stat-card{border:1px solid var(--border,#dce1e8);border-radius:12px;padding:1rem;background:var(--surface,#fff);min-width:0}
+.apn-stat-card h4{margin:.1rem 0 .65rem}
+.apn-metrics{display:grid;grid-template-columns:1fr 1fr;gap:.45rem .8rem;margin-top:.8rem;font-size:.88rem;color:var(--muted,#5f6875)}
+.apn-metrics b{color:var(--text,#202733)}
+@media(max-width:600px){.apn-dashboard-grid{grid-template-columns:1fr}.apn-stat-card{padding:.85rem}}

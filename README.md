@@ -109,3 +109,17 @@ Les 18 critères transversaux et les niveaux d'évaluation reprennent la fiche d
 - Réinitialisation du code d’accès avec génération d’un nouveau code temporaire ; l’ancien code devient invalide.
 - Vérification côté serveur que les étudiants attribués existent.
 - Aucune suppression de compte ni de retours de stage ; les données historiques sont préservées.
+
+
+## V3.26 – Livraison enrichie du portfolio
+
+Cette version ajoute des fonctions de suivi : commentaires pédagogiques sur les retours des tuteurs, journal réflexif étudiant, objectifs de progression avec suivi d'état, messages de l'équipe pédagogique, vue synthétique de promotion et validation déclarative des heures par les tuteurs.
+
+Les nouvelles tables sont créées de façon additive au démarrage (`teacher_tutor_comments`, `student_journal`, `student_goals`, `teacher_messages`, `internship_hour_validations`). Les tables et données existantes ne sont pas supprimées. Les validations d'heures sont historisées séparément et ne modifient pas automatiquement le volume du stage.
+
+Les critères d'évaluation restent le référentiel transversal existant. Les grilles de tuteur par 18 critères et les exports consolidés dédiés nécessitent une validation de l'équipe pédagogique avant de figer leurs modalités.
+
+
+## V3.27 – Tableau de bord par APN
+
+Ajout dans le tableau de bord enseignant d'une synthèse pour les huit activités : Escalade, PAH, Trail, Course d’orientation, VTT, Kayak, Stand Up Paddle et Voile. Chaque carte indique les étudiants ayant au moins une évaluation sur les critères de l'activité, le nombre d'expériences déclarées, les niveaux acquis/en cours/non acquis et les critères restant à évaluer. Le taux d'acquisition est calculé sur les seuls critères évalués (acquis / évalués), afin de ne pas assimiler une absence d'évaluation à un échec.
