@@ -48,3 +48,11 @@ Les 18 critères transversaux et les niveaux d'évaluation reprennent la fiche d
 - Vue individuelle filtrable par promotion, avec accès direct au portfolio étudiant.
 - Les indicateurs sont calculés à partir des dernières évaluations enregistrées ; aucune donnée ni table de la base n’est modifiée.
 - Actualisation manuelle disponible pour recharger les indicateurs.
+
+
+## V3.15 – Bilan pédagogique de période / semestre
+- Depuis le portfolio individuel dans l’espace enseignant, choisir une date de début et une date de fin puis générer un bilan imprimable.
+- Le bilan synthétise les évaluations datées de la période, les acquis, les compétences en cours ou non acquises, les critères sans évaluation sur la période, les expériences et les stages concernés.
+- Un champ permet à l’enseignant d’ajouter une appréciation et des objectifs de progression.
+- Le bilan s’imprime ou s’enregistre en PDF via le navigateur. Aucun nouveau stockage ni changement de base n’est requis.
+- Les données sans date exploitable ne sont pas intégrées aux listes filtrées par période ; les stages sans dates sont signalés comme non datés dans le bilan.

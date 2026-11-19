@@ -154,3 +154,25 @@ header .logos img.main-logo{width:112px!important;height:72px!important;max-widt
 .promotion-student>button{margin-top:8px}
 .promotion-note{margin-top:18px;font-size:12px}
 @media(max-width:640px){.promotion-student-main{align-items:flex-start;flex-direction:column}.promotion-filter{align-items:flex-start;flex-direction:column}.promotion-filter select{width:100%}}
+
+
+/* V3.15 – bilans pédagogiques semestriels */
+.semester-builder{margin:16px 0}
+.semester-builder .form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.semester-builder .form label{display:flex;flex-direction:column;gap:5px}
+.semester-builder .form .full{grid-column:1/-1}
+.semester-report{margin:18px 0;padding:28px;background:#fff}
+.semester-report .report-category{margin:14px 0}
+.semester-report .report-category>h3{font-size:14px;color:#243e67;margin:12px 0 8px}
+.semester-report .report-category article{padding:9px 0;border-bottom:1px solid #e0e4e9;break-inside:avoid}
+.semester-report .report-category article .pill{margin-left:8px}
+.semester-report .report-category article p{margin:5px 0;font-size:12px}
+.semester-report .report-category article small{color:#657181}
+.semester-report .teacher-comment{white-space:pre-wrap;min-height:55px;border:1px solid #dce2e9;border-radius:7px;padding:12px}
+@media(max-width:640px){.semester-builder .form{grid-template-columns:1fr}.semester-builder .form .full{grid-column:auto}}
+@media print{
+ body:has(.semester-report) #content>*:not(#semesterReport){display:none!important}
+ body:has(.semester-report) #semesterReport{display:block!important}
+ body:has(.semester-report) .semester-report{margin:0!important;padding:0!important}
+ body:has(.semester-report) .semester-report .pdf-actions{display:none!important}
+}
