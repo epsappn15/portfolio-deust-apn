@@ -72,3 +72,15 @@ Les 18 critères transversaux et les niveaux d'évaluation reprennent la fiche d
 ## V3.18 – Logo DEUST sans montagne en arrière-plan
 - Suppression du motif de montagne en arrière-plan du logo DEUST APN du bandeau, en conservant les activités, les arbres, le texte et l’encadrement.
 - Régénération du favicon et de l’icône de raccourci mobile à partir de ce logo modifié.
+
+
+## V3.20 – Logo réorganisé selon la demande
+- « DEUST APN » est placé au-dessus des personnages, sur la ligne visuelle des sapins.
+- « Activités de Pleine Nature » est remonté juste sous les personnages et centré entre les deux traits latéraux.
+- Le logo de bandeau, le favicon et l’icône mobile sont tous régénérés.
+
+
+## V3.22 – Correction du double D et agrandissement du texte
+- Reprise depuis le logo propre V3.20 afin d’éliminer tout caractère résiduel et éviter le doublon.
+- Agrandissement de « DEUST APN » et de « Activités de Pleine Nature ».
+- Mise à jour du favicon et de l’icône mobile à partir du logo corrigé.
