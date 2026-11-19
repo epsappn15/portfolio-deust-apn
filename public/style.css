@@ -176,3 +176,11 @@ header .logos img.main-logo{width:112px!important;height:72px!important;max-widt
  body:has(.semester-report) .semester-report{margin:0!important;padding:0!important}
  body:has(.semester-report) .semester-report .pdf-actions{display:none!important}
 }
+
+
+/* V3.23 – bilans partagés avec les étudiants */
+.student-report{margin:14px 0}
+.student-report .row{align-items:flex-start;gap:10px}
+.student-report h3{margin:0}
+.student-report h4{margin:14px 0 5px;color:#243e67}
+.student-report .report-text{white-space:pre-wrap;margin:0;padding:10px 12px;background:#f5f7fa;border-radius:7px}

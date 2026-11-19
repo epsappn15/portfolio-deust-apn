@@ -21,7 +21,8 @@ const schema=[
 `create table if not exists activity_skills(id text primary key,activity text not null,title text not null,description text,proposed integer default 1,created_at text default current_timestamp)`,
 `create table if not exists tutors(id text primary key,name text not null,email text,access_hash text not null,created_at text default current_timestamp)`,
 `create table if not exists tutor_students(tutor_id text not null,student_id text not null,primary key(tutor_id,student_id))`,
-`create table if not exists evidence_files(id text primary key,student_id text not null,experience_id text,competency_id text,file_name text not null,mime_type text not null,data_base64 text not null,note text,created_at text default current_timestamp)`
+`create table if not exists evidence_files(id text primary key,student_id text not null,experience_id text,competency_id text,file_name text not null,mime_type text not null,data_base64 text not null,note text,created_at text default current_timestamp)`,
+`create table if not exists pedagogical_reports(id text primary key,student_id text not null references students(id),start_date text not null,end_date text not null,teacher_comment text,objectives text,created_at text default current_timestamp)`
 ];
 const domains=[
 ["Gestion de la sécurité",["Identifie les enjeux de sécurité","Présente les règles de sécurité","Identifie les prises de risque et agit pour éviter un accident"]],
@@ -64,6 +65,25 @@ app.delete("/api/internships/:internshipId",auth,async(q,r)=>{const sid=scope(q)
 app.post("/api/experiences",auth,async(q,r)=>{const sid=scope(q)||q.body.studentId;const {activity,entry_date,hours,mission,reflection,internship_id}=q.body;if(!sid||!activity||!entry_date||!mission)return r.status(400).json({error:"Date, activité et mission obligatoires"});const eid=id();await db.execute({sql:"insert into experiences(id,student_id,internship_id,activity,entry_date,hours,mission,reflection) values(?,?,?,?,?,?,?,?)",args:[eid,sid,internship_id||null,activity,entry_date,hours||0,mission,reflection||null]});r.json({id:eid})});
 app.post("/api/evaluations",auth,async(q,r)=>{const sid=scope(q)||q.body.studentId;const {competency_id,level,comment}=q.body;if(!sid||!competencies.some(c=>c.id===competency_id)||!levels.includes(level))return r.status(400).json({error:"Évaluation invalide"});const eid=id();await db.execute({sql:"insert into evaluations(id,student_id,competency_id,level,author,comment) values(?,?,?,?,?,?)",args:[eid,sid,competency_id,level,q.session.user.role,comment||null]});r.json({id:eid})});
 app.get("/api/teacher/portfolio/:studentId",teacher,async(q,r)=>{const sid=q.params.studentId;const [s,i,e,v]=await Promise.all([db.execute({sql:"select id,name,email,promo from students where id=?",args:[sid]}),db.execute({sql:"select * from internships where student_id=? order by created_at desc",args:[sid]}),db.execute({sql:"select * from experiences where student_id=? order by entry_date desc",args:[sid]}),db.execute({sql:"select * from evaluations where student_id=? order by entry_date desc",args:[sid]})]);const [as,evf]=await Promise.all([db.execute("select * from activity_skills order by activity,id"),db.execute({sql:"select id,student_id,experience_id,competency_id,file_name,mime_type,note,created_at from evidence_files where student_id=? order by created_at desc",args:[sid]})]);r.json({student:s.rows[0],internships:i.rows,experiences:e.rows,evaluations:v.rows,competencies,levels,activities,activitySkills:as.rows,evidenceFiles:evf.rows})});
+// Bilans pédagogiques enregistrés : création réservée à l'enseignant, lecture par l'étudiant concerné.
+app.post("/api/teacher/reports/:studentId",teacher,async(q,r)=>{
+ const {start_date,end_date,teacher_comment,objectives}=q.body||{};
+ if(!start_date||!end_date||start_date>end_date)return r.status(400).json({error:"Période invalide."});
+ const exists=await db.execute({sql:"select id from students where id=?",args:[q.params.studentId]});
+ if(!exists.rows.length)return r.status(404).json({error:"Étudiant introuvable."});
+ const rid=id();
+ await db.execute({sql:"insert into pedagogical_reports(id,student_id,start_date,end_date,teacher_comment,objectives) values(?,?,?,?,?,?)",args:[rid,q.params.studentId,start_date,end_date,teacher_comment||null,objectives||null]});
+ r.json({id:rid,ok:true});
+});
+app.get("/api/student/reports",auth,async(q,r)=>{
+ if(q.session.user.role!=="student")return r.status(403).json({error:"Accès étudiant requis."});
+ const x=await db.execute({sql:"select id,start_date,end_date,teacher_comment,objectives,created_at from pedagogical_reports where student_id=? order by created_at desc",args:[q.session.user.studentId]});
+ r.json(x.rows);
+});
+app.get("/api/teacher/reports/:studentId",teacher,async(q,r)=>{
+ const x=await db.execute({sql:"select id,start_date,end_date,teacher_comment,objectives,created_at from pedagogical_reports where student_id=? order by created_at desc",args:[q.params.studentId]});
+ r.json(x.rows);
+});
 // Référentiel technique APN : les critères initiaux sont des propositions à valider.
 app.get("/api/activity-skills",auth,async(q,r)=>{const x=await db.execute("select * from activity_skills order by activity,id");r.json(x.rows)});
 app.post("/api/activity-skills",teacher,async(q,r)=>{const {activity,title,description}=q.body||{};if(!activities.includes(activity)||!title)return r.status(400).json({error:"Activité et intitulé obligatoires."});const sid=id();await db.execute({sql:"insert into activity_skills(id,activity,title,description,proposed) values(?,?,?,?,1)",args:[sid,activity,title,description||""]});r.json({id:sid})});

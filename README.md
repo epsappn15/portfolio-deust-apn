@@ -84,3 +84,11 @@ Les 18 critères transversaux et les niveaux d'évaluation reprennent la fiche d
 - Reprise depuis le logo propre V3.20 afin d’éliminer tout caractère résiduel et éviter le doublon.
 - Agrandissement de « DEUST APN » et de « Activités de Pleine Nature ».
 - Mise à jour du favicon et de l’icône mobile à partir du logo corrigé.
+
+
+## V3.23 – Bilans pédagogiques partagés avec les étudiants
+- Les bilans générés par l’enseignant sont désormais enregistrés dans une nouvelle table `pedagogical_reports` créée automatiquement au démarrage.
+- L’enseignant peut saisir une appréciation et des objectifs pour la période suivante, puis enregistrer le bilan.
+- Un nouvel onglet « Bilans pédagogiques » est disponible dans l’espace étudiant pour consulter les bilans partagés, les appréciations et les objectifs.
+- Routes protégées : création/consultation enseignant et consultation limitée à l’étudiant connecté.
+- Migration non destructive : aucune table ou donnée existante n’est supprimée ou modifiée.
