@@ -62,3 +62,8 @@ Les 18 critères transversaux et les niveaux d'évaluation reprennent la fiche d
 - Création d’une icône carrée transparente à partir du logo DEUST APN exact utilisé dans le bandeau.
 - Mise à jour des références favicon et Apple Touch Icon pour les onglets et raccourcis mobiles.
 - Aucun changement de données, de serveur ou de configuration Render.
+
+
+## V3.17 – Icône carrée plein cadre
+- Les icônes favicon et Apple Touch Icon utilisent désormais un recadrage carré plein cadre du logo de bandeau, sans marge transparente autour.
+- Le recadrage conserve le centre du logo et remplit intégralement le carré des raccourcis mobiles.
