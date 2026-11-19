@@ -67,3 +67,8 @@ Les 18 critères transversaux et les niveaux d'évaluation reprennent la fiche d
 ## V3.17 – Icône carrée plein cadre
 - Les icônes favicon et Apple Touch Icon utilisent désormais un recadrage carré plein cadre du logo de bandeau, sans marge transparente autour.
 - Le recadrage conserve le centre du logo et remplit intégralement le carré des raccourcis mobiles.
+
+
+## V3.18 – Logo DEUST sans montagne en arrière-plan
+- Suppression du motif de montagne en arrière-plan du logo DEUST APN du bandeau, en conservant les activités, les arbres, le texte et l’encadrement.
+- Régénération du favicon et de l’icône de raccourci mobile à partir de ce logo modifié.
