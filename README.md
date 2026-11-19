@@ -56,3 +56,9 @@ Les 18 critères transversaux et les niveaux d'évaluation reprennent la fiche d
 - Un champ permet à l’enseignant d’ajouter une appréciation et des objectifs de progression.
 - Le bilan s’imprime ou s’enregistre en PDF via le navigateur. Aucun nouveau stockage ni changement de base n’est requis.
 - Les données sans date exploitable ne sont pas intégrées aux listes filtrées par période ; les stages sans dates sont signalés comme non datés dans le bilan.
+
+
+## V3.16 – Favicon assorti au logo de bandeau
+- Création d’une icône carrée transparente à partir du logo DEUST APN exact utilisé dans le bandeau.
+- Mise à jour des références favicon et Apple Touch Icon pour les onglets et raccourcis mobiles.
+- Aucun changement de données, de serveur ou de configuration Render.
